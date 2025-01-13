@@ -3,10 +3,21 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mcp-optionsflow"
+name = "@knowaveragejoe/mcp-optionsflow"
 version = "0.1.0"
 description = "MCP server for options flow analysis"
+authors = [
+    { name = "Todd Wolven", email = "todd@knowaveragejoe.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
 requires-python = ">=3.10"
+keywords = ["options", "trading", "finance", "analysis", "mcp", "claude"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+]
 dependencies = [
     "mcp",
     "yfinance",
