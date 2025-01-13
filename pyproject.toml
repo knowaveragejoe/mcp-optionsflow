@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "@knowaveragejoe/mcp-optionsflow"
+name = "mcp-optionsflow"
 version = "0.1.0"
 description = "MCP server for options flow analysis"
 authors = [
-    { name = "Todd Wolven", email = "todd@knowaveragejoe.com" }
+    
 ]
 license = { text = "MIT" }
 readme = "README.md"
