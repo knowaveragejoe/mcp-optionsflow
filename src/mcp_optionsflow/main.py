@@ -12,11 +12,21 @@ import re
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
-from scipy.interpolate import griddata
 import datetime
 from functools import wraps
 import time
 from typing import List, Dict, Optional, Any, Tuple
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("options_analytics.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("options-analytics")
 
 def retry_on_error(max_retries: int = 3, delay: float = 1.0):
     """Decorator to retry failing functions with exponential backoff"""
@@ -39,7 +49,6 @@ def retry_on_error(max_retries: int = 3, delay: float = 1.0):
         return wrapper
     return decorator
 
-
 def get_risk_free_rate() -> float:
     """Simple way to get a recent risk-free rate (using 1-year treasury yield).
        Consider more robust methods for production."""
@@ -54,16 +63,7 @@ def get_risk_free_rate() -> float:
         logger.warning(f"Error fetching risk-free rate: {e}")
         return 0.04  # Default rate if there's an error
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("options_analytics.log"),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger("options-analytics")
+
 
 class OptionsError(Exception):
     pass
@@ -803,7 +803,7 @@ async def call_tool(name: str, arguments: dict):
         logger.error(f"Unexpected error in {name}: {str(e)}\n{traceback.format_exc()}")
         return format_response(None, f"Internal error: {str(e)}")
 
-async def main():    
+async def start():    
     logger.info("Starting Options Analytics server...")
     try:
         async with stdio_server() as (read_stream, write_stream):
@@ -816,5 +816,8 @@ async def main():
         logger.error(f"Server error: {str(e)}\n{traceback.format_exc()}")
         raise
 
+def main():
+    asyncio.run(start())
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
