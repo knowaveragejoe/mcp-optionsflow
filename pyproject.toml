@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-optionsflow"
+version = "0.1.0"
+description = "MCP server for options flow analysis"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp",
+    "yfinance",
+    "pandas",
+    "numpy",
+    "scipy",
+    "asyncio"
+]
+
+[project.scripts]
+mcp-optionsflow = "mcp_optionsflow.main:main"
+
+[tool.hatch.build]
+packages = ["src/mcp_optionsflow"]
