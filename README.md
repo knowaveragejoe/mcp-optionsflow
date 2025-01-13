@@ -30,12 +30,15 @@ A Model Context Protocol (MCP) server providing advanced options analysis and st
 ## Installation
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
 # Clone the repository
 git clone https://github.com/twolven/mcp-optionsflow.git
 cd mcp-optionsflow
+
+# Install dependencies using pip
+pip install -r requirements.txt
+
+# Install dependencies with uv
+uv sync
 ```
 
 ## Usage
@@ -47,8 +50,8 @@ In your `claude-desktop-config.json`, add the following to the `mcpServers` sect
 {
     "mcpServers": {
         "optionsflow": {
-            "command": "python",
-            "args": ["path/to/optionsflow.py"]
+            "command": "uvx",
+            "args": ["mcp-optionsflow"]
         }
     }
 }
