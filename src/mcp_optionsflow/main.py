@@ -28,6 +28,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger("options-analytics")
 
+def format_response(data: Any, error: Optional[str] = None) -> List[TextContent]:
+    """Format API response"""
+    response = {
+        "success": error is None,
+        "timestamp": time.time(),
+        "data": data if error is None else None,
+        "error": error
+    }
+    
+    return [TextContent(
+        type="text",
+        text=json.dumps(response, indent=2)
+    )]
+
 def retry_on_error(max_retries: int = 3, delay: float = 1.0):
     """Decorator to retry failing functions with exponential backoff"""
     def decorator(func):
@@ -62,7 +76,6 @@ def get_risk_free_rate() -> float:
     except Exception as e:
         logger.warning(f"Error fetching risk-free rate: {e}")
         return 0.04  # Default rate if there's an error
-
 
 
 class OptionsError(Exception):
@@ -532,19 +545,6 @@ class OptionsStrategyAnalyzer:
             logger.error(error_msg)
             return None, error_msg
 
-def format_response(data: Any, error: Optional[str] = None) -> List[TextContent]:
-    """Format API response"""
-    response = {
-        "success": error is None,
-        "timestamp": time.time(),
-        "data": data if error is None else None,
-        "error": error
-    }
-    
-    return [TextContent(
-        type="text",
-        text=json.dumps(response, indent=2)
-    )]
 
 # Initialize server and analyzers
 app = Server("options-analytics")
