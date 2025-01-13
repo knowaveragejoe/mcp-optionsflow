@@ -1,0 +1,40 @@
+# Version Control
+.git/
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Local Development
+.DS_Store
+
+# Docker
+.docker/
+docker-compose*.yml
+
+# Keep these files for building
+!pyproject.toml
+!uv.lock
